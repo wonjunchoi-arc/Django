@@ -25,11 +25,6 @@ class BugMusic(object):
             print(f'{self.class_name[1]} : {i.find("a").text}')
 
 
-    def title_dict(self):
-        print()
-
-
-
 
     @staticmethod
     def main():

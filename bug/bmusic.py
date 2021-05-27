@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
 
 class Bmusic():
     url = 'https://music.bugs.co.kr/chart/track/realtime/total?'
@@ -8,6 +9,7 @@ class Bmusic():
     title_ls = []
     artist_ls = []
     dic = {}
+    df = None
 
     def set_url(self,detail):
         self.url = requests.get(f'{self.url}{detail})',headers=self.headers).text
@@ -27,16 +29,21 @@ class Bmusic():
 
 
 
+
 #https://music.bugs.co.kr/chart/track/realtime/total?wl_ref=M_contents_03_01
     def inser_title_dict(self):
-        d = self.dic
-        for i in self.artist_ls:
-            for k in self.title_ls:
-                d[i] = k
+        for i, j in enumerate(self.title_ls):
+            self.dic[j] = self.artist_ls[i]
+
         print(self.dic)
 
+    def dict_to_dataframe(self):
+        self.df = pd.DataFrame.from_dict(self.dic, orient='index')  #dt -> df로 전환
+        print(self.df)
 
-
+    def df_to_csv(self):
+        path = './data/bugs.csv'
+        self.df.to_csv(path, sep=',' ,na_rep='NaN')
 
 
 
@@ -57,6 +64,13 @@ class Bmusic():
                 bm.get_ranking()
             elif menu == '3':
                 bm.inser_title_dict()
+
+            elif menu == '4':
+                bm.dict_to_dataframe()
+
+            elif menu == '5':
+                bm.df_to_csv()
+
 
 
 Bmusic.main()

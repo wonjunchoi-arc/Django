@@ -7,6 +7,7 @@
 class Gugudan(object):
     num = 0
     dict = {}
+    dict = ''.
 
     def gugu1(self):
         for i in range(1,10):
