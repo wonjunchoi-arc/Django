@@ -4,6 +4,8 @@ from titanic.templates.plot import Plot
 
 if __name__ == '__main__':
     while 1:
+        controller = Controller()
+
         menu = input('0.Exit 1.data visualization 2.modeling, 3.machine learning 4. machine release')
         if menu == '0':
             break
@@ -16,13 +18,12 @@ if __name__ == '__main__':
 
 
         elif menu == '2':
-            controller = Controller()
-            controller.modeling('train.csv','test.csv')
+            df = controller.modeling('train.csv','test.csv')
 
         elif menu == '3':
-            pass
+            df = controller.learning(df)
         elif menu == '4':
-            pass
+            controller.submit('train.csv','test.csv')
 
         else:
             continue
